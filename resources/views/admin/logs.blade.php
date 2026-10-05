@@ -1,0 +1,2 @@
+@extends('layouts.admin')
+@section('content')<div class="table-wrap"><table><thead><tr><th>Waktu</th><th>Pengguna</th><th>Aksi</th><th>Modul</th><th>ID</th><th>IP</th></tr></thead><tbody>@foreach($items as $item)<tr><td>{{ $item->created_at }}</td><td>{{ $item->full_name }}</td><td>{{ $item->action }}</td><td>{{ $item->module }}</td><td>{{ $item->record_id }}</td><td>{{ $item->ip_address }}</td></tr>@endforeach</tbody></table></div>{{ $items->links('pagination::simple-default') }}@endsection

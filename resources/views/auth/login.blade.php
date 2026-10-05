@@ -1,0 +1,2 @@
+@extends('layouts.auth')
+@section('content')<form method="post" action="{{ url('admin/login/process') }}">@csrf<label>Username atau email<input name="username" value="{{ old('username') }}" autocomplete="username" required autofocus></label><label>Kata Sandi<input type="password" name="password" autocomplete="current-password" required></label><label class="check"><input type="checkbox" name="remember" value="1"> Ingat saya</label><button class="button">Masuk</button></form><p><a href="{{ url('admin/forgot-password') }}">Lupa kata sandi?</a></p>@endsection

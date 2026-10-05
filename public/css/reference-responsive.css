@@ -1,0 +1,57 @@
+/* Small-screen and accessibility adjustments; desktop geometry follows the original site. */
+.mobile-menu-toggle{display:none;background:transparent;border:1px solid #e2e8f0;border-radius:8px;color:#1e3a8a;font-size:20px;padding:8px 12px;cursor:pointer}
+.logo-container img{display:block;max-width:100%;object-fit:contain}
+.nav-links a:focus-visible,.btn:focus-visible,.btn-team:focus-visible,.back-to-top:focus-visible,.mobile-menu-toggle:focus-visible{outline:3px solid #f59e0b;outline-offset:5px}
+.public-page-content{width:100%;min-height:50vh}
+.success{background:#dcfce7;color:#166534}.error{background:#fee2e2;color:#991b1b}.alert ul{padding-left:20px}
+.program-description{font-size:.875rem;color:#64748b;line-height:1.65;white-space:pre-line}
+.work-program-section .wp-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 24px;
+    margin: 0;
+    align-items: stretch;
+}
+.work-program-section .wp-card {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    border-top: 3px solid var(--program-color);
+    min-width: 0;
+}
+.work-program-section .wp-header {
+    gap: 14px;
+    min-height: 56px;
+    margin-bottom: 18px;
+}
+.work-program-section .wp-header > div:last-child { min-width: 0; }
+.work-program-section .wp-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--program-color);
+}
+.work-program-section .wp-title {
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    margin: 0;
+}
+.work-program-section .program-description,
+.work-program-section .wp-list {
+    margin: 0;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+.work-program-section .wp-list li { padding: 10px 0; }
+.work-program-section .wp-list li:first-child { padding-top: 0; }
+.work-program-actions { text-align: center; margin-top: 32px; }
+@media (min-width: 641px) and (max-width: 960px) {
+    .work-program-section .wp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+    .work-program-section .wp-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .work-program-section .wp-card { padding: 22px; }
+    .work-program-section .wp-header { min-height: 0; margin-bottom: 14px; }
+    .work-program-actions .btn-team { max-width: 100%; padding: 14px 18px; font-size: .875rem; }
+}
+@media(max-width:768px){.top-bar{padding:.5rem 0}.top-bar-content{font-size:.72rem;gap:12px}.navbar{padding:1rem 0;flex-wrap:wrap;gap:12px}.mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center}.nav-links{display:none;width:100%;flex-direction:column;align-items:stretch;gap:0;border-top:1px solid #e2e8f0;padding-top:8px}.nav-links.is-open{display:flex}.nav-links a{display:block;padding:10px 6px}.hero-section{padding:3rem 0}.hero-title{font-size:1.75rem}.section{margin:3rem 0}.section-header{padding:0 16px;margin-bottom:2rem}.profile-intro{padding:1.5rem;margin:0 12px 2rem}.profile-details-grid{margin-left:12px;margin-right:12px}.org-table{margin:0 12px}.wp-grid{margin:0 12px}.footer-grid{grid-template-columns:1fr}.footer-col p{overflow-wrap:anywhere}.org-cell{padding:.75rem .65rem}.hero-btns .btn{font-size:.9rem}.back-to-top{right:1rem;bottom:1rem;width:42px;height:42px}.top-bar-content>div:first-child{max-width:73%}.top-bar-content>div:last-child{white-space:nowrap}.public-page-content .grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}

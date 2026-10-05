@@ -1,0 +1,4 @@
+@extends('layouts.site')
+@section('content')<div class="page-heading"><p class="eyebrow">DAYGUN RESEARCH CENTER</p><h1>{{ $title }}</h1></div>
+<form method="get" class="search"><input name="q" value="{{ request('q') }}" placeholder="Cari {{ strtolower($title) }}" aria-label="Pencarian">@if($categories->isNotEmpty())<select name="category" aria-label="Kategori"><option value="">Semua kategori</option>@foreach($categories as $category)<option value="{{ $category->id }}" @selected(request('category')==$category->id)>{{ $category->name }}</option>@endforeach</select>@endif<button class="button">Cari</button></form>
+<div class="grid">@forelse($items as $item)@include('partials.card')@empty<p class="empty">Belum ada data yang sesuai.</p>@endforelse</div><div class="pagination">{{ $items->links('pagination::simple-default') }}</div>@endsection

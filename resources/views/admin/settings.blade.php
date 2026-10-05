@@ -1,0 +1,2 @@
+@extends('layouts.admin')
+@section('content')<form method="post" action="{{ url('admin/settings/save') }}" class="card card-body form-grid">@csrf @foreach($settings as $setting)<label>{{ ucwords(str_replace('_',' ',$setting->setting_key)) }} <small>{{ $setting->setting_group }}</small><textarea rows="2" name="{{ $setting->setting_key }}">{{ old($setting->setting_key,$setting->setting_value) }}</textarea></label>@endforeach<div class="full"><button class="button">Simpan Pengaturan</button></div></form>@endsection
