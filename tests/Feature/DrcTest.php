@@ -111,6 +111,19 @@ class DrcTest extends TestCase
         $this->get('/file/documents/'.$item->id)->assertNotFound();
     }
 
+    public function test_document_upload_json_response_and_validation(): void
+    {
+        Storage::fake('public');
+        $this->actingAs($this->admin());
+        $data = ['title' => 'Upload Progress', 'slug' => 'upload-progress', 'status' => 'active', 'file_path' => UploadedFile::fake()->create('progress.pdf', 20, 'application/pdf')];
+        $this->withHeader('Accept', 'application/json')->post('/admin/documents/store', $data)
+            ->assertOk()->assertJson(['redirect' => url('admin/documents')])->assertSessionHas('success');
+        $this->assertDatabaseHas('documents', ['slug' => 'upload-progress']);
+        $this->withHeader('Accept', 'application/json')->post('/admin/documents/store', ['status' => 'active'])
+            ->assertUnprocessable()->assertJsonValidationErrors(['title', 'file_path']);
+        $this->assertDatabaseCount('documents', 1);
+    }
+
     public function test_large_document_upload_limit(): void
     {
         Storage::fake('public');

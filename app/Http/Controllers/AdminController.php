@@ -182,6 +182,12 @@ return $q;
             Audit::record($id ? 'update' : 'create', $module, $item->id);
         });
 
+        if ($request->expectsJson()) {
+            $request->session()->flash('success', 'Data berhasil disimpan.');
+
+            return response()->json(['redirect' => url("admin/$module")]);
+        }
+
         return redirect("/admin/$module")->with('success', 'Data berhasil disimpan.');
     }
 

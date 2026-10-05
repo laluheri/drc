@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('content')<form method="post" enctype="multipart/form-data" action="{{ url('admin/'.$module.($item->exists?'/update/'.$item->id:'/store')) }}" class="card card-body form-grid">@csrf
+@section('content')<form method="post" enctype="multipart/form-data" action="{{ url('admin/'.$module.($item->exists?'/update/'.$item->id:'/store')) }}" class="card card-body form-grid" data-upload-form>@csrf
 @foreach($fields as $name=>$field)@php($value=old($name,$item->$name ?? ($field['default'] ?? '')))
 <label>{{ ucwords(str_replace('_',' ',$name)) }}{{ $field['required']?' *':'' }}
 @if(in_array($name,array_merge(config('drc.images'),config('drc.files'))))<input type="file" name="{{ $name }}" accept="{{ in_array($name,config('drc.images'))?'image/jpeg,image/png,image/gif,image/webp':'.pdf,.doc,.docx' }}">@if($item->$name)<small>File saat ini: {{ $item->$name }}. Kosongkan untuk mempertahankan.</small>@endif
@@ -8,4 +8,10 @@
 @elseif(in_array($field['type'],['TEXT','LONGTEXT']))<textarea name="{{ $name }}" rows="{{ $name==='content'?12:4 }}">{{ $value }}</textarea>
 @else<input name="{{ $name }}" type="{{ $name==='password'?'password':($name==='email'?'email':(in_array($field['type'],['INT','TINYINT','YEAR'])?'number':($field['type']==='DATE'?'date':($field['type']==='TIME'?'time':($field['type']==='DATETIME'?'datetime-local':'text'))))) }}" value="{{ $name==='password'?'':$value }}" @if(isset($field['length'])) maxlength="{{ $field['length'] }}" @endif @if($name==='password') autocomplete="new-password" @endif>
 @endif @error($name)<small class="danger">{{ $message }}</small>@enderror</label>@endforeach
-<div class="actions full"><button class="button">Simpan Data</button><a href="{{ url('admin/'.$module) }}">Batal</a><small>* Wajib diisi. Gambar maksimal 5 MB; PDF/Word maksimal 64 MB. Konten mendukung HTML dasar.</small></div></form>@endsection
+<div class="full" data-upload-status hidden aria-live="polite" aria-atomic="true" style="padding:16px;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc">
+<strong data-upload-message></strong>
+<progress data-upload-progress max="100" value="0" aria-label="Persentase upload" style="display:block;width:100%;height:20px;margin:10px 0;accent-color:#2563eb"></progress>
+<small data-upload-details></small><ul data-upload-errors hidden style="margin:10px 0 0;color:#b91c1c"></ul>
+</div>
+<div class="actions full"><button class="button">Simpan Data</button><a href="{{ url('admin/'.$module) }}">Batal</a><small>* Wajib diisi. Gambar maksimal 5 MB; PDF/Word maksimal 64 MB. Konten mendukung HTML dasar.</small></div></form>
+<script src="{{ asset('js/admin-upload.js') }}?v=1" defer></script>@endsection
