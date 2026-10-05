@@ -111,6 +111,19 @@ class DrcTest extends TestCase
         $this->get('/file/documents/'.$item->id)->assertNotFound();
     }
 
+    public function test_large_document_upload_limit(): void
+    {
+        Storage::fake('public');
+        $this->actingAs($this->admin());
+        $data = ['title' => 'Dokumen Besar', 'slug' => 'dokumen-besar', 'status' => 'active'];
+        $this->post('/admin/documents/store', $data + ['file_path' => UploadedFile::fake()->create('besar.pdf', 58 * 1024, 'application/pdf')])->assertRedirect('/admin/documents');
+        $item = DB::table('documents')->first();
+        Storage::disk('public')->assertExists($item->file_path);
+        $this->post('/admin/documents/store', ['title' => 'Terlalu Besar', 'slug' => 'terlalu-besar', 'status' => 'active', 'file_path' => UploadedFile::fake()->create('besar.pdf', 65 * 1024, 'application/pdf')])->assertSessionHasErrors('file_path');
+        $this->post('/admin/sliders/store', ['title' => 'Gambar Besar', 'status' => 'active', 'image' => UploadedFile::fake()->create('besar.png', 6 * 1024, 'image/png')])->assertSessionHasErrors('image');
+        $this->assertDatabaseCount('documents', 1);
+    }
+
     public function test_super_admin_cannot_disable_or_delete_self(): void
     {
         $user = $this->admin();

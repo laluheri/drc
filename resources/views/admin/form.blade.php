@@ -8,4 +8,4 @@
 @elseif(in_array($field['type'],['TEXT','LONGTEXT']))<textarea name="{{ $name }}" rows="{{ $name==='content'?12:4 }}">{{ $value }}</textarea>
 @else<input name="{{ $name }}" type="{{ $name==='password'?'password':($name==='email'?'email':(in_array($field['type'],['INT','TINYINT','YEAR'])?'number':($field['type']==='DATE'?'date':($field['type']==='TIME'?'time':($field['type']==='DATETIME'?'datetime-local':'text'))))) }}" value="{{ $name==='password'?'':$value }}" @if(isset($field['length'])) maxlength="{{ $field['length'] }}" @endif @if($name==='password') autocomplete="new-password" @endif>
 @endif @error($name)<small class="danger">{{ $message }}</small>@enderror</label>@endforeach
-<div class="actions full"><button class="button">Simpan Data</button><a href="{{ url('admin/'.$module) }}">Batal</a><small>* Wajib diisi. File maksimal 5 MB. Konten mendukung HTML dasar.</small></div></form>@endsection
+<div class="actions full"><button class="button">Simpan Data</button><a href="{{ url('admin/'.$module) }}">Batal</a><small>* Wajib diisi. Gambar maksimal 5 MB; PDF/Word maksimal 64 MB. Konten mendukung HTML dasar.</small></div></form>@endsection

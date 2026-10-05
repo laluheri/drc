@@ -98,7 +98,7 @@ return $q;
             $rule = [$required ? 'required' : 'nullable'];
             if ($isFile) {
                 $rule[] = 'file';
-                $rule[] = 'max:5120';
+                $rule[] = in_array($name, config('drc.images')) ? 'max:5120' : 'max:65536';
                 $rule[] = in_array($name, config('drc.images')) ? 'mimes:jpg,jpeg,png,gif,webp' : 'mimes:pdf,doc,docx';
             } elseif ($name === 'password') {
                 $rule[] = Password::min(12)->letters()->numbers();
